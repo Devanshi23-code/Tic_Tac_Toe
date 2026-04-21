@@ -1,39 +1,45 @@
+import java.util.Random;
+
 public class TicTacToe {
 
-    // 3x3 board
-    static char[][] board = new char[3][3];
+    static boolean isHumanTurn;
+    static char humanSymbol;
+    static char computerSymbol;
 
     public static void main(String[] args) {
-        initializeBoard();
-        printBoard();
+        tossAndAssignSymbols();
+        displayTossResult();
     }
 
-    // Initialize the board with '-'
-    static void initializeBoard() {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                board[row][col] = '-';
-            }
+    // UC2: Toss and assign symbols
+    static void tossAndAssignSymbols() {
+        Random rand = new Random();
+
+        // 0 = Human starts, 1 = Computer starts
+        int toss = rand.nextInt(2);
+
+        if (toss == 0) {
+            isHumanTurn = true;
+            humanSymbol = 'X';
+            computerSymbol = 'O';
+        } else {
+            isHumanTurn = false;
+            humanSymbol = 'O';
+            computerSymbol = 'X';
         }
     }
 
-    // Print the board in proper format
-    static void printBoard() {
-        System.out.println("Tic-Tac-Toe Board:\n");
+    // Display result
+    static void displayTossResult() {
+        System.out.println("=== Toss Result ===");
 
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                System.out.print(board[row][col]);
-
-                if (col < 2) {
-                    System.out.print(" | ");
-                }
-            }
-            System.out.println();
-
-            if (row < 2) {
-                System.out.println("---------");
-            }
+        if (isHumanTurn) {
+            System.out.println("Human won the toss and will play first.");
+        } else {
+            System.out.println("Computer won the toss and will play first.");
         }
+
+        System.out.println("Human symbol: " + humanSymbol);
+        System.out.println("Computer symbol: " + computerSymbol);
     }
 }
